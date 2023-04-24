@@ -9,6 +9,10 @@
     <Authors>Masod Saidi</Authors>
 	<Description>A simple package to configure Minimal Api Endpoints as individual classes</Description>
 	<PackageTags>minimalapi; minimal-api; api; endpoint</PackageTags>
+    <RepositoryUrl>https://github.com/MasodSaidi/minimal-api-endpoints</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+	<PackageProjectUrl>https://github.com/MasodSaidi/minimal-api-endpoints</PackageProjectUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
