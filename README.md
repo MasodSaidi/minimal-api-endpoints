@@ -1,13 +1,13 @@
 # MinimalApi.Endpoints
 
-MinimalApi.Endpoints is a .NET Nuget package that allows you to easily structure your Minimal Api Endpoints in individual classes instead of having them all in `Program.cs`.
+MinimalApi.Endpoints is a package that allows you to easily structure your Minimal Api Endpoints in individual classes instead of having them all in `Program.cs`.
 
 ## Installation
 
-You can install MinimalApi.Endpoints via NuGet Package Manager in Visual Studio or by using the following command in the Package Manager Console:
+You can install MinimalApi.Endpoints via NuGet Package Manager in Visual Studio or by using the following command:
 
 ```
-Install-Package MinimalApi.Endpoints
+dotnet add package MinimalApi.Endpoints
 ```
 
 ## Usage
@@ -24,6 +24,7 @@ app.MapEndpoints();
 
 app.Run();
 ```
+
 
 ### Defining Endpoint Classes
 
@@ -79,6 +80,7 @@ public class WannaBeUserController
     }
 }
 ```
+
 
 ### Limitations
 
