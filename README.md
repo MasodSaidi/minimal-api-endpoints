@@ -32,7 +32,6 @@ To define an endpoint class, create a simple class that contains a method decora
 - `EndpointGet` for GET requests
 - `EndpointPost` for POST requests
 - `EndpointPut` for PUT requests
-- `EndpointPatch` for PATCH requests
 
 Here's an example of how you can use the `EndpointGet` attribute to create an endpoint that returns a list of users:
 
