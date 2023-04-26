@@ -89,4 +89,4 @@ public class WannaBeUserController
 
 ## License
 
-MinimalApi.Endpoints is licensed under the MIT license. See the [LICENSE](LICENSE) file for more details.
+MinimalApi.Endpoints is licensed under the MIT license.

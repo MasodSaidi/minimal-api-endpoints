@@ -1,6 +1,7 @@
-﻿using System.Linq.Expressions;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Builder;
+using MinimalApi.Attributes;
 
 namespace MinimalApi;
 
@@ -8,37 +9,52 @@ public static class Endpoints
 {
     public static void MapEndpoints(this WebApplication app)
     {
+        var endpointClasses = GetEndpointClasses();
+        var endpointMethods = endpointClasses.SelectMany(GetEndpointMethods);
+
+        foreach (var method in endpointMethods)
+        {
+            var handler = CreateHandler(method);
+            var endpointBase = method.GetCustomAttribute<EndpointBase>(inherit: false);
+
+            if (endpointBase is EndpointGet)
+                app.MapGet(endpointBase.Pattern, handler);
+            if (endpointBase is EndpointPost)
+                app.MapPost(endpointBase.Pattern, handler);
+            if (endpointBase is EndpointPut)
+                app.MapPut(endpointBase.Pattern, handler);
+            // if (endpointBase is EndpointPatch)
+            //    app.MapPatch(endpointBase.Pattern, handler);
+        }
+    }
+
+    private static IEnumerable<Type> GetEndpointClasses()
+    {
         var assembly = Assembly.GetExecutingAssembly();
 
-        var endpointClassesTypes = from type in assembly.GetTypes()
-                                   where type.IsClass && type.GetMethods().Any(m => m.GetCustomAttributes(typeof(EndpointBase), false).Length > 0)
-                                   select type;
+        return from type in assembly.GetTypes()
+               where type.IsClass && type.GetMethods().Any(m => m.IsDefined(typeof(EndpointBase), inherit: false))
+               select type;
+    }
 
-        foreach (var endpointClassType in endpointClassesTypes)
-        {
-            var methods = endpointClassType.GetMethods(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var method in methods)
-            {
-                var attribute = method.GetCustomAttribute(typeof(EndpointBase), false);
-                if (attribute == null)
-                    continue;
+    private static IEnumerable<MethodInfo> GetEndpointMethods(Type endpointClass)
+    {
+        return endpointClass
+            .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+            .Where(method => method.IsDefined(typeof(EndpointBase), inherit: false));
+    }
 
-                var endpointBase = (EndpointBase)attribute;
-                var instance = Activator.CreateInstance(endpointClassType);
-                var types = method.GetParameters().Select(p => p.ParameterType);
-                var getType = Expression.GetFuncType;
-                types = types.Concat(new[] { method.ReturnType });
-                var delegateOfType = Delegate.CreateDelegate(getType(types.ToArray()), instance, method.Name, true);
+    private static Delegate CreateHandler(MethodInfo method)
+    {
+        var instance = Activator.CreateInstance(method.DeclaringType!);
 
-                if (endpointBase.GetType() == typeof(EndpointGet))
-                    app.MapGet(endpointBase.Pattern, delegateOfType);
-                if (endpointBase.GetType() == typeof(EndpointPost))
-                    app.MapPost(endpointBase.Pattern, delegateOfType);
-                if (endpointBase.GetType() == typeof(EndpointPut))
-                    app.MapPut(endpointBase.Pattern, delegateOfType);
-                //if (attribute.GetType() == typeof(EndpointPatch))
-                //    app.MapPatch(attribute.Pattern, delegateOfType);
-            }
-        }
+        var parameterTypes = method.GetParameters()
+            .Select(p => p.GetType())
+            .Append(method.ReturnType);
+
+        var delegateType = Expression.GetDelegateType(parameterTypes.ToArray());
+        var delegateInstance = Delegate.CreateDelegate(delegateType, instance!, method.Name, ignoreCase: true);
+
+        return delegateInstance;
     }
 }
