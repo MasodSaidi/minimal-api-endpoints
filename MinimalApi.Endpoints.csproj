@@ -26,8 +26,11 @@
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
     </None>
+    <None Include=".github\workflows\build-and-deploy-nuget.yaml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Attributes\" />
+    <Folder Include=".github\" />
+    <Folder Include=".github\workflows\" />
   </ItemGroup>
 </Project>
