@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup .NET Core SDK
+      - name: Setup .NET
         uses: actions/setup-dotnet@v1
 
       - name: Restore dependencies
@@ -24,6 +24,26 @@ jobs:
 
       - name: Build project
         run: dotnet build --configuration Release
+        
+      - name: Get commit hash
+        id: commit_hash
+        run: echo "::set-output name=hash::$(git rev-parse --short HEAD)"
+
+      - name: Get version number
+        id: version
+        run: echo "::set-output name=version::$(dotnet ./tools/SemVer.dll ${{ steps.commit_hash.outputs.hash }})"
+        uses: NuGet/semver@v1
+        with:
+          major-version-bump-message: 'This release contains breaking changes.'
+          minor-version-bump-message: 'This release contains new features.'
+          patch-version-bump-message: 'This release contains bug fixes.'
 
       - name: Pack project
-        run: dotnet pack --configuration Release
+        run: dotnet pack --configuration Release --version-suffix ${{ steps.version.outputs.version }}
+
+      - name: Deploy Nuget package
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ env.NUGET_API_KEY }}
+          nuget-version: ${{ steps.version.outputs.version }}
+        run: nuget push *.nupkg -Source https://api.nuget.org/v3/index.json
