@@ -29,10 +29,3 @@ jobs:
 
       - name: Pack project
         run: dotnet pack --configuration Release
-
-      - name: Deploy Nuget package
-        uses: nuget/setup-nuget@v1
-        with:
-          nuget-api-key: ${{ env.NUGET_API_KEY }}
-          nuget-version: ${{ github.sha }}
-        run: nuget push *.nupkg -Source https://api.nuget.org/v3/index.json
