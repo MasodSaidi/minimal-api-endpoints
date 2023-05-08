@@ -5,7 +5,7 @@ using MinimalApi.Attributes;
 
 namespace MinimalApi;
 
-public static class Endpoints
+public static class EndpointsMapper
 {
     public static void MapEndpoints(this WebApplication app)
     {
@@ -15,16 +15,16 @@ public static class Endpoints
         foreach (var method in endpointMethods)
         {
             var handler = CreateHandler(method);
-            var endpointBase = method.GetCustomAttribute<EndpointBase>(inherit: false);
+            var endpointAttribute = method.GetCustomAttribute<EndpointBase>(inherit: false);
 
-            if (endpointBase is EndpointGet)
-                app.MapGet(endpointBase.Pattern, handler);
-            if (endpointBase is EndpointPost)
-                app.MapPost(endpointBase.Pattern, handler);
-            if (endpointBase is EndpointPut)
-                app.MapPut(endpointBase.Pattern, handler);
-            // if (endpointBase is EndpointPatch)
-            //    app.MapPatch(endpointBase.Pattern, handler);
+            if (endpointAttribute is EndpointGet)
+                app.MapGet(endpointAttribute.Pattern, handler);
+            if (endpointAttribute is EndpointPost)
+                app.MapPost(endpointAttribute.Pattern, handler);
+            if (endpointAttribute is EndpointPut)
+                app.MapPut(endpointAttribute.Pattern, handler);
+            // if (endpointAttribute is EndpointPatch)
+            //    app.MapPatch(endpointAttribute.Pattern, handler);
         }
     }
 
