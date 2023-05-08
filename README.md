@@ -49,7 +49,7 @@ Only requirement is to use appropriate Endpoint attribute.
 
 ### More examples
 
-Here are some examples of using EndpointPost and EndpointPut:
+Here are some examples of using `EndpointPost` and `EndpointPut`:
 
 ```csharp
 public class CreateUser
