@@ -12,7 +12,7 @@ dotnet add package MinimalApi.Endpoints
 
 ## Usage
 
-To use MinimalApi.Endpoints, simply call the `MapEndpoints` extension method in your `Program.cs`. Here's an example:
+To use MinimalApi.Endpoints, simply call the `MapEndpoints` extension method in your `Program.cs`:
 
 ```csharp #6
 using MinimalApi;
@@ -116,7 +116,7 @@ public class WannaBeUserController
 
 The method parameters can resolve to route/query/body values and registered services from the dependency container.
 
-### Limitations
+## Limitations
 
 - Only HTTP GET, POST, PUT methods are supported.
 - PATCH and DELETE will be supported when .NET 8 is released.
