@@ -30,7 +30,7 @@ public static class EndpointsMapper
 
     private static IEnumerable<Type> GetEndpointClasses()
     {
-        var assembly = Assembly.GetExecutingAssembly();
+        var assembly = Assembly.GetEntryAssembly();
 
         return from type in assembly.GetTypes()
                where type.IsClass && type.GetMethods().Any(m => m.IsDefined(typeof(EndpointBase), inherit: false))
@@ -49,7 +49,7 @@ public static class EndpointsMapper
         var instance = Activator.CreateInstance(method.DeclaringType!);
 
         var parameterTypes = method.GetParameters()
-            .Select(p => p.GetType())
+            .Select(p => p.ParameterType)
             .Append(method.ReturnType);
 
         var delegateType = Expression.GetDelegateType(parameterTypes.ToArray());
