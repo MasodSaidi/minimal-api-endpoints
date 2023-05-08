@@ -23,7 +23,7 @@ jobs:
         run: dotnet build -c Release
         
       - name: Package
-        run: dotnet pack --no-build -c Release
+        run: dotnet pack --no-build -c Release -o .
 
       - name: Publish
         run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate -n 
