@@ -14,7 +14,7 @@ dotnet add package MinimalApi.Endpoints
 
 To use MinimalApi.Endpoints, simply call the `MapEndpoints` extension method in your `Program.cs`. Here's an example:
 
-```csharp
+```csharp #6
 using MinimalApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,29 +25,7 @@ app.MapEndpoints();
 app.Run();
 ```
 
-
-### Defining Endpoint Classes
-
-To define an endpoint class, create a simple class that contains a method decorated with one of the following attributes to indicate the HTTP verb and route pattern for the endpoint:
-
-- `EndpointGet` for GET requests
-- `EndpointPost` for POST requests
-- `EndpointPut` for PUT requests
-
-Here's an example of how you can use the `EndpointGet` attribute to create an endpoint that returns a list of users:
-
-```csharp
-public class GetUsers
-{
-    [EndpointGet("/users")]
-    public async Task<IEnumerable<User>> GetAsync(UserDb db)
-    {
-        return await db.Users.ToListAsync();
-    }
-}
-```
-
-Here's an example of how you can use the `EndpointGet` attribute to create an endpoint that returns a specific user:
+Then create a class that contains a method decorated with `EndpointGet` attribute:
 
 ```csharp
 public class GetUser
@@ -60,27 +38,83 @@ public class GetUser
 }
 ```
 
-The method parameters can resolve to route/query/body values and registered services from the dependency container.
+You are free to put the class anywhere in the project, with any name and you can name the method whatever you like.
+Only requirement is to use appropriate Endpoint attribute.
+
+### Supported Endpoint attributes
+
+- `EndpointGet` for GET requests
+- `EndpointPost` for POST requests
+- `EndpointPut` for PUT requests
+
+### More examples
+
+Here are some examples of using EndpointPost and EndpointPut:
+
+```csharp
+public class CreateUser
+{
+    [EndpointPost("/users")]
+    public async Task<User> PostAsync(User user, UserDb db)
+    {
+        db.Users.Add(user);
+        await db.SaveChangesAsync();
+        return user;
+    }
+}
+```
+
+```csharp
+public class UpdateUser
+{
+    [EndpointPut("/users/{id}")]
+    public async Task<User> PutAsync(int id, User updatedUser, UserDb db)
+    {
+        var user = await db.Users.FindAsync(id);
+        user.Name = updatedUser.Name;
+        user.Email = updatedUser.Email;
+        await db.SaveChangesAsync();
+        return user;
+    }
+}
+```
+
+### I want Controllers!
 
 If you rather prefer to have all methods in one class:
 
 ```csharp
 public class WannaBeUserController
 {
-    [EndpointGet("/users")]
-    public async Task<IEnumerable<User>> GetAllAsync(UserDb db)
-    {
-        return await db.Users.ToListAsync();
-    }
-
     [EndpointGet("/users/{id}")]
     public async Task<User> GetAsync(int id, UserDb db)
     {
         return await db.Users.FindAsync(id);
     }
+
+    [EndpointPost("/users")]
+    public async Task<User> PostAsync(User user, UserDb db)
+    {
+        db.Users.Add(user);
+        await db.SaveChangesAsync();
+        return user;
+    }
+
+    [EndpointPut("/users/{id}")]
+    public async Task<User> PutAsync(int id, User updatedUser, UserDb db)
+    {
+        var user = await db.Users.FindAsync(id);
+        user.Name = updatedUser.Name;
+        user.Email = updatedUser.Email;
+        await db.SaveChangesAsync();
+        return user;
+    }
 }
 ```
 
+## Method parameters
+
+The method parameters can resolve to route/query/body values and registered services from the dependency container.
 
 ### Limitations
 
