@@ -12,7 +12,7 @@ dotnet add package MinimalApi.Endpoints
 
 ## Usage
 
-To use MinimalApi.Endpoints, simply call the `MapEndpoints` extension method in your `Program.cs`:
+Simply call the `MapEndpoints` extension method in your `Program.cs`:
 
 ```csharp #6
 using MinimalApi;
@@ -25,7 +25,7 @@ app.MapEndpoints();
 app.Run();
 ```
 
-Then create a class that contains a method decorated with `EndpointGet` attribute:
+Then create a simple class that contains a method decorated with `EndpointGet` attribute:
 
 ```csharp
 public class GetUser
@@ -38,7 +38,7 @@ public class GetUser
 }
 ```
 
-You are free to put the class anywhere in the project, with any name and you can name the method whatever you like.
+You are free to put the class anywhere in your project, with any name and you can name the method whatever you like.
 Only requirement is to use appropriate Endpoint attribute.
 
 ### Supported Endpoint attributes
