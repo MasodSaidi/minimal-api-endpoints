@@ -19,12 +19,14 @@ public static class EndpointsMapper
 
             if (endpointAttribute is EndpointGet)
                 app.MapGet(endpointAttribute.Pattern, handler);
-            if (endpointAttribute is EndpointPost)
+            else if (endpointAttribute is EndpointPost)
                 app.MapPost(endpointAttribute.Pattern, handler);
-            if (endpointAttribute is EndpointPut)
+            else if (endpointAttribute is EndpointPut)
                 app.MapPut(endpointAttribute.Pattern, handler);
-            // if (endpointAttribute is EndpointPatch)
-            //    app.MapPatch(endpointAttribute.Pattern, handler);
+            else if (endpointAttribute is EndpointDelete)
+                app.MapDelete(endpointAttribute.Pattern, handler);
+            else if (endpointAttribute is EndpointPatch)
+                app.MapMethods(endpointAttribute.Pattern, new[] { "PATCH" }, handler);
         }
     }
 
@@ -32,7 +34,7 @@ public static class EndpointsMapper
     {
         var assembly = Assembly.GetEntryAssembly();
 
-        return from type in assembly.GetTypes()
+        return from type in assembly!.GetTypes()
                where type.IsClass && type.GetMethods().Any(m => m.IsDefined(typeof(EndpointBase), inherit: false))
                select type;
     }

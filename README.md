@@ -41,11 +41,6 @@ public class GetUser
 You are free to put the class anywhere in your project, with any name and you can name the method whatever you like.
 Only requirement is to use appropriate Endpoint attribute.
 
-### Supported Endpoint attributes
-
-- `EndpointGet` for GET requests
-- `EndpointPost` for POST requests
-- `EndpointPut` for PUT requests
 
 ### More examples
 
@@ -116,10 +111,13 @@ public class WannaBeUserController
 
 The method parameters can resolve to route/query/body values and registered services from the dependency container.
 
-## Limitations
+### Supported Endpoint attributes
 
-- Only HTTP GET, POST, PUT methods are supported.
-- PATCH and DELETE will be supported when .NET 8 is released.
+- `EndpointGet` for GET requests
+- `EndpointPost` for POST requests
+- `EndpointPut` for PUT requests
+- `EndpointPatch` for PATCH requests
+- `EndpointDelete` for DELETE requests
 
 ## License
 

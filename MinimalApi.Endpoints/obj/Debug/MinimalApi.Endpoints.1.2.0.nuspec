@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MinimalApi.Endpoints</id>
+    <version>1.2.0</version>
+    <authors>Masod Saidi</authors>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/MasodSaidi/minimal-api-endpoints</projectUrl>
+    <description>A simple package to configure Minimal Api Endpoints as individual classes</description>
+    <tags>minimalapi minimal-api api endpoint</tags>
+    <repository type="git" url="https://github.com/MasodSaidi/minimal-api-endpoints" />
+    <dependencies>
+      <group targetFramework="net6.0" />
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net6.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="/Users/labs/dev/minimal-api-endpoints/MinimalApi.Endpoints/bin/Debug/net6.0/MinimalApi.Endpoints.dll" target="lib/net6.0/MinimalApi.Endpoints.dll" />
+  </files>
+</package>

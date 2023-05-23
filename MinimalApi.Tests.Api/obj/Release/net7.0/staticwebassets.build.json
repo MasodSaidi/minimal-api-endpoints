@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "AIHkU7GWKvhwUM4UU2Nz+vT8p4f/OrgL5bDD0EEhVzg=",
+  "Source": "MinimalApi.Tests.Api",
+  "BasePath": "_content/MinimalApi.Tests.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

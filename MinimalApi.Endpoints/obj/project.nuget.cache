@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "POuTRBsT75/JU/2WfdbBLc+1ZHfUiZ9td3ZAeUq3U7WwPytYCAFEpkxH0sALVjbjuPACnj+kAFQBPIFy7vYD7w==",
+  "success": true,
+  "projectFilePath": "/Users/labs/dev/minimal-api-endpoints/MinimalApi.Endpoints/MinimalApi.Endpoints.csproj",
+  "expectedPackageFiles": [
+    "/Users/labs/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.13/microsoft.aspnetcore.app.ref.6.0.13.nupkg.sha512",
+    "/Users/labs/.nuget/packages/microsoft.netcore.app.ref/6.0.13/microsoft.netcore.app.ref.6.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

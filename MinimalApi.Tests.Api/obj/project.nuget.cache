@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "KQ7B2hM79ePcyvHynM1BmVVOixK3SBrj9NcYGPo7DSpAVqjMgyps0deTxORFdh/L/s/z3SeVrwgsgh/J/BfnlQ==",
+  "success": true,
+  "projectFilePath": "/Users/labs/dev/MinimalApi.Tests.Api/MinimalApi.Tests.Api.csproj",
+  "expectedPackageFiles": [
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.hosting.abstractions/2.2.0/microsoft.aspnetcore.hosting.abstractions.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.hosting.server.abstractions/2.2.0/microsoft.aspnetcore.hosting.server.abstractions.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.http.abstractions/2.2.0/microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.http.features/2.2.0/microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.extensions.configuration.abstractions/2.2.0/microsoft.extensions.configuration.abstractions.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.extensions.dependencyinjection.abstractions/2.2.0/microsoft.extensions.dependencyinjection.abstractions.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.extensions.fileproviders.abstractions/2.2.0/microsoft.extensions.fileproviders.abstractions.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.extensions.hosting.abstractions/2.2.0/microsoft.extensions.hosting.abstractions.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.extensions.logging.abstractions/2.2.0/microsoft.extensions.logging.abstractions.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.extensions.primitives/2.2.0/microsoft.extensions.primitives.2.2.0.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/system.memory/4.5.1/system.memory.4.5.1.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/system.runtime.compilerservices.unsafe/4.5.1/system.runtime.compilerservices.unsafe.4.5.1.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/system.text.encodings.web/4.5.0/system.text.encodings.web.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
