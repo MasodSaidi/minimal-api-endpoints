@@ -12,12 +12,15 @@ dotnet add package MinimalApi.Endpoints
 
 ## Usage
 
-Simply call the `MapEndpoints` extension method in your `Program.cs`:
+Simply call `AddEndpoints` and `MapEndpoints` extension methods in your `Program.cs`:
 
 ```csharp #6
 using MinimalApi;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddEndpoints();
+
 var app = builder.Build();
 
 app.MapEndpoints();
@@ -31,14 +34,14 @@ Then create a simple class that contains a method decorated with `EndpointGet` a
 public class GetUser
 {
     [EndpointGet("/users/{id}")]
-    public async Task<User> GetAsync(int id, UserDb db)
+    public async Task<User> GetAsync(int id, DataContext data)
     {
-        return await db.Users.FindAsync(id);
+        return await data.Users.FindAsync(id);
     }
 }
 ```
 
-You are free to put the class anywhere in your project, with any name and you can name the method whatever you like.
+You have the freedom to place the class anywhere within your project, utilizing any name you prefer. Similarly, you can name the method in whichever way you find suitable.
 Only requirement is to use appropriate Endpoint attribute.
 
 
@@ -50,10 +53,10 @@ Here are some examples of using `EndpointPost` and `EndpointPut`:
 public class CreateUser
 {
     [EndpointPost("/users")]
-    public async Task<User> PostAsync(User user, UserDb db)
+    public async Task<User> PostAsync(User user, DataContext data)
     {
-        db.Users.Add(user);
-        await db.SaveChangesAsync();
+        data.Users.Add(user);
+        await data.SaveChangesAsync();
         return user;
     }
 }
@@ -63,12 +66,12 @@ public class CreateUser
 public class UpdateUser
 {
     [EndpointPut("/users/{id}")]
-    public async Task<User> PutAsync(int id, User updatedUser, UserDb db)
+    public async Task<User> PutAsync(int id, User updatedUser, DataContext data)
     {
-        var user = await db.Users.FindAsync(id);
+        var user = await data.Users.FindAsync(id);
         user.Name = updatedUser.Name;
         user.Email = updatedUser.Email;
-        await db.SaveChangesAsync();
+        await data.SaveChangesAsync();
         return user;
     }
 }
@@ -81,27 +84,34 @@ If you rather prefer to have all methods in one class:
 ```csharp
 public class WannaBeUserController
 {
-    [EndpointGet("/users/{id}")]
-    public async Task<User> GetAsync(int id, UserDb db)
+    private readonly DataContext _data;
+
+    public WannaBeUserController(DataContext data)
     {
-        return await db.Users.FindAsync(id);
+        _data = data;
+    }
+
+    [EndpointGet("/users/{id}")]
+    public async Task<User> GetAsync(int id)
+    {
+        return await _data.Users.FindAsync(id);
     }
 
     [EndpointPost("/users")]
-    public async Task<User> PostAsync(User user, UserDb db)
+    public async Task<User> PostAsync(User user)
     {
-        db.Users.Add(user);
-        await db.SaveChangesAsync();
+        _data.Users.Add(user);
+        await _data.SaveChangesAsync();
         return user;
     }
 
     [EndpointPut("/users/{id}")]
-    public async Task<User> PutAsync(int id, User updatedUser, UserDb db)
+    public async Task<User> PutAsync(int id, User updatedUser)
     {
-        var user = await db.Users.FindAsync(id);
+        var user = await _data.Users.FindAsync(id);
         user.Name = updatedUser.Name;
         user.Email = updatedUser.Email;
-        await db.SaveChangesAsync();
+        await _data.SaveChangesAsync();
         return user;
     }
 }
@@ -113,11 +123,11 @@ The method parameters can resolve to route/query/body values and registered serv
 
 ### Supported Endpoint attributes
 
-- `EndpointGet` for GET requests
-- `EndpointPost` for POST requests
-- `EndpointPut` for PUT requests
-- `EndpointPatch` for PATCH requests
-- `EndpointDelete` for DELETE requests
+- `EndpointGet`
+- `EndpointPost`
+- `EndpointPut`
+- `EndpointPatch`
+- `EndpointDelete`
 
 ## License
 

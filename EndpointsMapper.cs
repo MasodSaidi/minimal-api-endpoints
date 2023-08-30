@@ -2,6 +2,8 @@
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Builder;
 using MinimalApi.Attributes;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace MinimalApi;
 
@@ -9,12 +11,11 @@ public static class EndpointsMapper
 {
     public static void MapEndpoints(this WebApplication app)
     {
-        var endpointClasses = GetEndpointClasses();
-        var endpointMethods = endpointClasses.SelectMany(GetEndpointMethods);
+        var endpointMethods = AssemblyHelpers.GetEndpointMethods();
 
         foreach (var method in endpointMethods)
         {
-            var handler = CreateHandler(method);
+            var handler = CreateHandler(method, app.Services);
             var endpointAttribute = method.GetCustomAttribute<EndpointBase>(inherit: false);
 
             if (endpointAttribute is EndpointGet)
@@ -30,25 +31,10 @@ public static class EndpointsMapper
         }
     }
 
-    private static IEnumerable<Type> GetEndpointClasses()
+    private static Delegate CreateHandler(MethodInfo method, IServiceProvider serviceProvider)
     {
-        var assembly = Assembly.GetEntryAssembly();
-
-        return from type in assembly!.GetTypes()
-               where type.IsClass && type.GetMethods().Any(m => m.IsDefined(typeof(EndpointBase), inherit: false))
-               select type;
-    }
-
-    private static IEnumerable<MethodInfo> GetEndpointMethods(Type endpointClass)
-    {
-        return endpointClass
-            .GetMethods(BindingFlags.Public | BindingFlags.Instance)
-            .Where(method => method.IsDefined(typeof(EndpointBase), inherit: false));
-    }
-
-    private static Delegate CreateHandler(MethodInfo method)
-    {
-        var instance = Activator.CreateInstance(method.DeclaringType!);
+        using var scope = serviceProvider.CreateScope();
+        var instance = scope.ServiceProvider.GetRequiredService(method.DeclaringType!);
 
         var parameterTypes = method.GetParameters()
             .Select(p => p.ParameterType)
