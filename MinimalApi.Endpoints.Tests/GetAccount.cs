@@ -9,10 +9,10 @@ namespace MinimalApi.Endpoints.Tests
 	{
 		[EndpointGet("/accounts/{id}")]
 		[SwaggerOperation(Summary = "Get account by id")]
-        public async Task<IResult> GetAsync(int id, ILogger<WannaBeUserController> logger)
+		public async Task<IResult> GetAsync(int id, ILogger<WannaBeUserController> logger)
 		{
-            logger.LogInformation("Accounts endpoint visited at {DT}", DateTime.UtcNow.ToLongTimeString());
-            return Results.Ok($"Getting id from accounts method endpoint {id}");
+			logger.LogInformation("Accounts endpoint visited at {DT}", DateTime.UtcNow.ToLongTimeString());
+			return Results.Ok($"Getting id from accounts method endpoint {id}");
 		}
 	}
 }
