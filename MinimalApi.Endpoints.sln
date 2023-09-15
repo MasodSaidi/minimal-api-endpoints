@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1705.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalApi.Endpoints", "MinimalApi.Endpoints.csproj", "{16CB012C-9516-458D-A73F-590A06FB3EA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalApi.Endpoints", "MinimalApi.Endpoints\MinimalApi.Endpoints.csproj", "{16CB012C-9516-458D-A73F-590A06FB3EA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalApi.Endpoints.Tests", "MinimalApi.Endpoints.Tests\MinimalApi.Endpoints.Tests.csproj", "{A1D12341-4A91-41B2-8A37-54DC5878B609}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{16CB012C-9516-458D-A73F-590A06FB3EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16CB012C-9516-458D-A73F-590A06FB3EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16CB012C-9516-458D-A73F-590A06FB3EA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1D12341-4A91-41B2-8A37-54DC5878B609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1D12341-4A91-41B2-8A37-54DC5878B609}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1D12341-4A91-41B2-8A37-54DC5878B609}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1D12341-4A91-41B2-8A37-54DC5878B609}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

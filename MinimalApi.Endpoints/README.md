@@ -117,9 +117,9 @@ public class WannaBeUserController
 }
 ```
 
-## Method parameters
+## Swagger/OpenAPI support
 
-The method parameters can resolve to route/query/body values and registered services from the dependency container.
+Have full Swagger/OpenAPI support with comment or attribute based documentation
 
 ### Supported Endpoint attributes
 
