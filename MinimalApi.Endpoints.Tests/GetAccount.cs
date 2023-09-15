@@ -7,7 +7,7 @@ namespace MinimalApi.Endpoints.Tests
 {
 	public class GetAccount
 	{
-        [EndpointGet("/accounts/{id}")]
+		[EndpointGet("/accounts/{id}")]
 		[SwaggerOperation(Summary = "Get account by id")]
         public async Task<IResult> GetAsync(int id, ILogger<WannaBeUserController> logger)
 		{
