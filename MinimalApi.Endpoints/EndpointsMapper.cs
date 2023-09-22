@@ -18,16 +18,26 @@ public static class EndpointsMapper
             var handler = CreateHandler(method, app.Services);
             var endpointAttribute = method.GetCustomAttribute<EndpointBase>(inherit: false);
 
-            if (endpointAttribute is EndpointGet)
-                app.MapGet(endpointAttribute.Pattern, handler);
-            else if (endpointAttribute is EndpointPost)
-                app.MapPost(endpointAttribute.Pattern, handler);
-            else if (endpointAttribute is EndpointPut)
-                app.MapPut(endpointAttribute.Pattern, handler);
-            else if (endpointAttribute is EndpointDelete)
-                app.MapDelete(endpointAttribute.Pattern, handler);
-            else if (endpointAttribute is EndpointPatch)
-                app.MapMethods(endpointAttribute.Pattern, new[] { "PATCH" }, handler);
+            switch (endpointAttribute)
+            {
+                case EndpointGet:
+                    app.MapGet(endpointAttribute.Pattern, handler);
+                    break;
+                case EndpointPost:
+                    app.MapPost(endpointAttribute.Pattern, handler);
+                    break;
+                case EndpointPut:
+                    app.MapPut(endpointAttribute.Pattern, handler);
+                    break;
+                case EndpointDelete:
+                    app.MapDelete(endpointAttribute.Pattern, handler);
+                    break;
+                case EndpointPatch:
+                    app.MapMethods(endpointAttribute.Pattern, new[] { "PATCH" }, handler);
+                    break;
+                default:
+                    throw new NotSupportedException($"{endpointAttribute?.GetType().Name} type is not supported");
+            }
         }
     }
 
