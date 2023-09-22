@@ -15,29 +15,34 @@ public static class EndpointsMapper
 
         foreach (var method in endpointMethods)
         {
-            var handler = CreateHandler(method, app.Services);
-            var endpointAttribute = method.GetCustomAttribute<EndpointBase>(inherit: false);
+            MapEndpoint(app, method);
+        }
+    }
 
-            switch (endpointAttribute)
-            {
-                case EndpointGet:
-                    app.MapGet(endpointAttribute.Pattern, handler);
-                    break;
-                case EndpointPost:
-                    app.MapPost(endpointAttribute.Pattern, handler);
-                    break;
-                case EndpointPut:
-                    app.MapPut(endpointAttribute.Pattern, handler);
-                    break;
-                case EndpointDelete:
-                    app.MapDelete(endpointAttribute.Pattern, handler);
-                    break;
-                case EndpointPatch:
-                    app.MapMethods(endpointAttribute.Pattern, new[] { "PATCH" }, handler);
-                    break;
-                default:
-                    throw new NotSupportedException($"{endpointAttribute?.GetType().Name} type is not supported");
-            }
+    private static void MapEndpoint(WebApplication app, MethodInfo method)
+    {
+        var handler = CreateHandler(method, app.Services);
+        var endpointAttribute = method.GetCustomAttribute<EndpointBase>(inherit: false);
+
+        switch (endpointAttribute)
+        {
+            case EndpointGet:
+                app.MapGet(endpointAttribute.Pattern, handler);
+                break;
+            case EndpointPost:
+                app.MapPost(endpointAttribute.Pattern, handler);
+                break;
+            case EndpointPut:
+                app.MapPut(endpointAttribute.Pattern, handler);
+                break;
+            case EndpointDelete:
+                app.MapDelete(endpointAttribute.Pattern, handler);
+                break;
+            case EndpointPatch:
+                app.MapMethods(endpointAttribute.Pattern, new[] { "PATCH" }, handler);
+                break;
+            default:
+                throw new NotSupportedException($"{endpointAttribute?.GetType().Name} type is not supported");
         }
     }
 
@@ -51,8 +56,8 @@ public static class EndpointsMapper
             .Append(method.ReturnType);
 
         var delegateType = Expression.GetDelegateType(parameterTypes.ToArray());
-        var delegateInstance = Delegate.CreateDelegate(delegateType, instance!, method.Name, ignoreCase: true);
+        var delegateHandler = Delegate.CreateDelegate(delegateType, instance!, method.Name, ignoreCase: true);
 
-        return delegateInstance;
+        return delegateHandler;
     }
 }
