@@ -20,9 +20,9 @@ internal static class AssemblyHelpers
         var entryAssembly = GetEntryAssembly();
 
         return from type in entryAssembly.GetTypes()
-                from method in type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
-                where type.IsClass && method.IsDefined(typeof(EndpointBase), inherit: false)
-                select method;
+               from method in type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
+               where type.IsClass && method.IsDefined(typeof(EndpointBase), inherit: false)
+               select method;
     }
 
     private static Assembly GetEntryAssembly()
