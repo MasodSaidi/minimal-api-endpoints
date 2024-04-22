@@ -119,7 +119,7 @@ public class WannaBeUserController
 
 ## Swagger/OpenAPI support
 
-Have full Swagger/OpenAPI support with comment or attribute based documentation
+Have full Swagger/OpenAPI support with comment or attribute based documentation.
 
 ### Supported Endpoint attributes
 
