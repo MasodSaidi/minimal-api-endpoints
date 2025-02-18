@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>MinimalApi.Endpoints</PackageId>
-    <Version>1.3.3</Version>
+    <Version>1.3.4</Version>
     <Authors>Masod Saidi</Authors>
 	<Description>A simple package to configure Minimal Api Endpoints as individual classes</Description>
 	<PackageTags>minimalapi; minimal-api; api; endpoint</PackageTags>
