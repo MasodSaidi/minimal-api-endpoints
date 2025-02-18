@@ -27,7 +27,7 @@ internal static class AssemblyHelpers
 
     private static Assembly GetEntryAssembly()
     {
-        var entryAssembly = Assembly.GetEntryAssembly();
+        var entryAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
         if (entryAssembly == null)
             throw new InvalidOperationException("Entry assembly not found");
 
