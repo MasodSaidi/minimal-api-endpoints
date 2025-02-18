@@ -12,7 +12,17 @@ public static class EndpointsMapper
     public static void MapEndpoints(this WebApplication app)
     {
         var endpointMethods = AssemblyHelpers.GetEndpointMethods();
-
+        app.MapEndpointMethods(endpointMethods);
+    }
+    
+    public static void MapEndpoints<T>(this WebApplication app)
+    {
+        var endpointMethods = AssemblyHelpers.GetEndpointMethods<T>();
+        app.MapEndpointMethods(endpointMethods);
+    }
+    
+    private static void MapEndpointMethods(this WebApplication app, IEnumerable<MethodInfo> endpointMethods)
+    {
         foreach (var method in endpointMethods)
         {
             MapEndpoint(app, method);
