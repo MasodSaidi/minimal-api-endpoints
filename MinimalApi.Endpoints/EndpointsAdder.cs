@@ -28,7 +28,7 @@ public static class EndpointsAdder
     {
         foreach(var endpointClass in endpointClasses)
         {
-            services.AddScoped(endpointClass);
+            services.AddSingleton(endpointClass);
         }
     }
 }
