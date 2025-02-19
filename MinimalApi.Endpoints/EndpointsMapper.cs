@@ -62,7 +62,8 @@ public static class EndpointsMapper
 
     private static Delegate CreateHandler(MethodInfo method, IServiceProvider serviceProvider)
     {
-        var instance = serviceProvider.GetRequiredService(method.DeclaringType!);
+        var scope = serviceProvider.CreateScope();
+        var instance = scope.ServiceProvider.GetRequiredService(method.DeclaringType!);
 
         var parameterTypes = method.GetParameters()
             .Select(p => p.ParameterType)
