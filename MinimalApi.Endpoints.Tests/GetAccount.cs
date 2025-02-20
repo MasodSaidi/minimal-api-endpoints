@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using MinimalApi.Attributes;
+﻿using MinimalApi.Attributes;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace MinimalApi.Endpoints.Tests;
@@ -8,7 +6,7 @@ namespace MinimalApi.Endpoints.Tests;
 public class GetAccount
 {
 	[EndpointGet("/accounts/{id}")]
-	[SwaggerOperation(Summary = "Get account by id")]
+	[SwaggerOperation(OperationId = "GetAccount", Summary = "Gets an account", Description = "Gets an account by id", Tags = new[] { "Account" })]
 	public async Task<IResult> GetAsync(int id, ILogger<GetAccount> logger)
 	{
 		logger.LogInformation("Accounts endpoint visited at {DT}", DateTime.UtcNow.ToLongTimeString());
