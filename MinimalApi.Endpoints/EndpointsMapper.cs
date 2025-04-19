@@ -50,6 +50,11 @@ public static class EndpointsMapper
             EndpointPatch patch => app.MapMethods(patch.Pattern, new[] { "PATCH" }, handlerDelegate),
             _ => throw new NotSupportedException($"Endpoint type {endpointAttribute.GetType().Name} is not supported.")
         };
+        
+        var methodAttributes = method.GetCustomAttributes(inherit: true);
+        var typeAttributes = method.DeclaringType?.GetCustomAttributes(inherit: true) ?? Array.Empty<object>();
+
+        builder.WithMetadata(typeAttributes.Concat(methodAttributes).ToArray());
     }
 
     private static Delegate CreateEndpointDelegate(MethodInfo endpointMethod)
